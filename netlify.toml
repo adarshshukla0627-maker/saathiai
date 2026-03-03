@@ -1,0 +1,12 @@
+[build]
+  command = "echo 'Using pre-built files'"
+  publish = "dist/client"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5000
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
