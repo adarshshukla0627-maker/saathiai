@@ -1,5 +1,4 @@
-import { db } from "../../db";
-import { users } from "@shared/schema";
+import { db, users } from "../../db";
 import { eq } from "drizzle-orm";
 import crypto from "crypto";
 

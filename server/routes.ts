@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { registerChatRoutes } from "./replit_integrations/chat";
 import { registerAuthRoutes } from "./replit_integrations/auth";
 import { chatStorage } from "./replit_integrations/chat/storage";
-import { conversations } from "@shared/schema";
+import { conversations } from "./db";
 
 export async function registerRoutes(
   httpServer: Server,
