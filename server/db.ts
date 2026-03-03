@@ -15,8 +15,19 @@ if (isDev) {
   
   // Create tables for development using better-sqlite3
   sqlite.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT NOT NULL UNIQUE,
+      email TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      name TEXT,
+      avatar TEXT,
+      created_at REAL NOT NULL
+    );
+    
     CREATE TABLE IF NOT EXISTS conversations (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
       title TEXT NOT NULL,
       created_at REAL NOT NULL
     );
