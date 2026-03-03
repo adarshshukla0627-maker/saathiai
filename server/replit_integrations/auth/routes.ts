@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { authStorage } from "./storage";
 import session from "express-session";
+import crypto from "crypto";
 
 // In-memory store for development (use Redis for production)
 const sessionStore = new session.MemoryStore();
@@ -191,7 +192,12 @@ export function registerAuthRoutes(app: Express): void {
         return res.status(401).json({ error: "Current password is incorrect" });
       }
 
-      const hashedPassword = await authStorage.updateUser(userId, { password: hashedPassword } as any);
+      // Hash the new password using the same method as storage.ts
+      const salt = crypto.randomBytes(16).toString("hex");
+      const hash = crypto.pbkdf2Sync(newPassword, salt, 1000, 64, "sha512").toString("hex");
+      const hashedPassword = `${salt}:${hash}`;
+
+      await authStorage.updateUser(userId, { password: hashedPassword });
 
       res.json({ message: "Password updated successfully" });
     } catch (error) {
