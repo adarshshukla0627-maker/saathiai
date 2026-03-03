@@ -1,0 +1,47 @@
+[build]
+  command = "npm run build"
+  publish = "dist/client"
+
+[functions]
+  directory = "netlify/functions"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5000
+
+# API redirects - order matters! More specific routes first
+
+# Auth endpoints
+[[redirects]]
+  from = "/api/auth/signup"
+  to = "/.netlify/functions/auth/signup"
+  status = 200
+
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth/login"
+  status = 200
+
+# POST /api/conversations/:id/messages -> messages function
+[[redirects]]
+  from = "/api/conversations/*/messages"
+  to = "/.netlify/functions/chat/messages"
+  status = 200
+
+# GET/POST /api/conversations (list/create) -> conversations function
+[[redirects]]
+  from = "/api/conversations"
+  to = "/.netlify/functions/chat/conversations"
+  status = 200
+
+# GET/DELETE /api/conversations/:id -> conversation function
+[[redirects]]
+  from = "/api/conversations/*"
+  to = "/.netlify/functions/chat/conversation"
+  status = 200
+
+# SPA fallback - must be last
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

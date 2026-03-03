@@ -3,9 +3,16 @@ dist
 .DS_Store
 server/public
 vite.config.ts.*
+<<<<<<< HEAD
 *.tar.gz
 .local
 dev.db
 dev.db-shm
 dev.db-wal
 *.log
+=======
+*.tar.gz
+>>>>>>> 72b688b14da8fffd0c6f5ecc1f79dd023359ce40
+
+# Local Netlify folder
+.netlify
